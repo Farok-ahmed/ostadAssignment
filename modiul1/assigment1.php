@@ -1,2 +1,4 @@
 <?php
-echo 'farok Ahmed';
+
+echo 'Enter Your Name';
+$num = (int) readline();
