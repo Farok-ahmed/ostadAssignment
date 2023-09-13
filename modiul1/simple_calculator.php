@@ -40,12 +40,12 @@
                                     break;
                                 case 'multi':
                                     $result = $num1 * $num2;
-                                    echo "Result: {$result}";
+                                    echo "Result: $result";
                                     break;
                                 case 'divi':
                                     if ($num2 != 0) {
                                         $result = $num1 / $num2;
-                                        echo "Result: {$result}";
+                                        echo "Result: $result";
                                     } else {
                                         echo 'Error: Division by zero!';
                                     }
