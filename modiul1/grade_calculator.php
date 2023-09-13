@@ -1,7 +1,7 @@
 <?php
 
-$bangla = 105;
-$english = 0;
+$bangla = 85;
+$english = 50;
 $math = 80;
 
 $average = ($bangla + $english + $math) / 3;
