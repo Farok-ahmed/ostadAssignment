@@ -5,7 +5,7 @@ function calculateAverageGrades($studentGrades){
         $totalGrades = array_sum($grades);
         $numSubject = count($grades);
         $averageGrades = $totalGrades/$numSubject;
-        echo "$student - Average Grades - {$averageGrades}"."\n";
+        printf("%s Average Grade: %.2f\n",$student,$averageGrades);
 };
 }
 
