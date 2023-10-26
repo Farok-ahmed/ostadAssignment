@@ -1,21 +1,28 @@
 <?php
  require_once "inc/function.php";
  $info = '';
- if('seed'==$task){
-    seed();
-    $info = "Seeding is compleate";
- }
-
  $task =$_GET['task'] ?? 'report';
  $error =$_GET['error'] ?? '0';
  $fname = '';
  $lname = '';
  $roll = '';
+ if('delete'==$task){
+    $id = filter_input(INPUT_GET,'id',FILTER_SANITIZE_STRING);
+    if($id>0){
+        deleteStudent($id);
+    }
+ }
+ if('seed'==$task){
+    seed();
+    $info = "Seeding is compleate";
+ }
+
+ 
  if(isset($_POST['submit'])){
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
     $roll = $_POST['roll'];
-    $id = $_POST['id'];
+    $id = filter_input(INPUT_POST,'id',FILTER_SANITIZE_STRING);
     if($id){
         if($fname !='' && $lname !='' && $roll !=''){
             updateStudent($id,$fname,$lname,$roll);

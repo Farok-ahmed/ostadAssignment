@@ -1,8 +1,8 @@
 <?php
 // windows file system
-// define("DB_NAME","e:\\New folder (2)\\ostadAssignment\\crud\\data\\db.txt");
+define("DB_NAME","e:\\New folder (2)\\ostadAssignment\\crud\\data\\db.txt");
 // linux file system
-define("DB_NAME","/media/farok/243f8f51-303f-4859-91b1-19580fdb5231/ostadAssignment/crud/data/db.txt");
+//define("DB_NAME","/media/farok/243f8f51-303f-4859-91b1-19580fdb5231/ostadAssignment/crud/data/db.txt");
 
 
 function seed(){
@@ -127,4 +127,11 @@ function updateStudent($id,$fname,$lname,$roll){
         return true;
     }
     return false;
+}
+function deleteStudent($id){
+    $serializeData = file_get_contents(DB_NAME);
+    $students=  unserialize($serializeData);
+    unset($students[$id-1]);
+    $serializeData = serialize($students);
+    file_put_contents(DB_NAME,$serializeData);
 }
