@@ -1,30 +1,40 @@
 <?php
  require_once "inc/function.php";
  $info = '';
-
- $task =$_GET['task'] ?? 'report';
- $error =$_GET['error'] ?? '0';
- if(isset($_POST['submit'])){
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
-    $roll = $_POST['roll'];
-    if($fname !='' && $lname !='' && $roll !=''){
-        $result=addStudent($fname,$lname,$roll);
-        if($result){
-            header("Location: index.php?task=report");
-        }else{
-            header("Location: index.php?task=report&error=1");
-        }
-    }
- }
-
  if('seed'==$task){
     seed();
     $info = "Seeding is compleate";
  }
+
+ $task =$_GET['task'] ?? 'report';
+ $error =$_GET['error'] ?? '0';
+ $fname = '';
+ $lname = '';
+ $roll = '';
+ if(isset($_POST['submit'])){
+    $fname = $_POST['fname'];
+    $lname = $_POST['lname'];
+    $roll = $_POST['roll'];
+    $id = $_POST['id'];
+    if($id){
+        if($fname !='' && $lname !='' && $roll !=''){
+            updateStudent($id,$fname,$lname,$roll);
+            header("Location: index.php?task=report");
+        }
+    }else{
+
+        if($fname !='' && $lname !='' && $roll !=''){
+            $result=addStudent($fname,$lname,$roll);
+            if($result){
+                header("Location: index.php?task=report");
+            }else{
+                $error = '1';
+            }
+        }
+    }
+ }
+
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,18 +79,40 @@
         <?php if('add' ==$task):?>
         <div class="row">
             <div class="column column-60">
-                <form action="index.php?tast=report" method="POST">
+                <form action="index.php?task=add" method="POST">
                     <label for="fname">First Name</label>
-                    <input type="text" name="fname" id="fname">
+                    <input type="text" name="fname" id="fname" value="<?php echo $fname; ?>">
                     <label for="fname">Last Name</label>
-                    <input type="text" name="lname" id="fname">
+                    <input type="text" name="lname" id="fname" value="<?php echo $lname; ?>">
                     <label for="roll">Roll</label>
-                    <input type="number" name="roll" id="roll">
+                    <input type="number" name="roll" id="roll" value="<?php echo $roll; ?>">
                     <button type="submit" name="submit">Save</button>
                 </form>
             </div>
         </div>
-        <?php endif; ?>
+        <?php endif; ?> 
+        <?php if('edit' ==$task):
+          $id = $_GET['id'];
+          $student = getStudent($id);
+          if($student):    
+        ?>
+        <div class="row">
+            <div class="column column-60">
+                <form action="index.php?task=edit" method="POST">
+                    <input type="hidden" name="id" id="id" value="<?php echo $id; ?>">
+                    <label for="fname">First Name</label>
+                    <input type="text" name="fname" id="fname" value="<?php echo $student['fname']; ?>">
+                    <label for="fname">Last Name</label>
+                    <input type="text" name="lname" id="fname" value="<?php echo $student['lname']; ?>">
+                    <label for="roll">Roll</label>
+                    <input type="number" name="roll" id="roll" value="<?php echo $student['roll']; ?>">
+                    <button type="submit" name="submit">update</button>
+                </form>
+            </div>
+        </div>
+        <?php 
+        endif;
+        endif ?>
     </div>
 </body>
 </html>

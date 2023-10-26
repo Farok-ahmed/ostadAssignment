@@ -1,6 +1,9 @@
 <?php
+// windows file system
+// define("DB_NAME","e:\\New folder (2)\\ostadAssignment\\crud\\data\\db.txt");
+// linux file system
+define("DB_NAME","/media/farok/243f8f51-303f-4859-91b1-19580fdb5231/ostadAssignment/crud/data/db.txt");
 
-define("DB_NAME","e:\\New folder (2)\\ostadAssignment\\crud\\data\\db.txt");
 
 function seed(){
     $data = array(
@@ -42,7 +45,7 @@ function generateReport(){
         <tr>
             <th>Name</th>
             <th>Roll</th>
-            <th>Action</th>
+            <th width="25%">Action</th>
         </tr>
         <?php
         foreach($students as $student){
@@ -55,7 +58,7 @@ function generateReport(){
                 <?php printf("%s",$student['roll']); ?>
             </td>
             <td>
-                <?php printf('<a href="index.php?task=edit&id">Edit</a> | <a href="index.php?task=delate&id">Delate</a>',$student['id'],$student['id']); ?>
+                <?php printf('<a href="index.php?task=edit&id=%s">Edit</a> | <a href="index.php?task=delete&id=%s">Delete</a>',$student['id'],$student['id']); ?>
             </td>
             
             </tr>
@@ -71,7 +74,7 @@ function addStudent($fname,$lname,$roll){
     $students=  unserialize($serializeData);
     $newId= count($students)+1;
     foreach($students as $_student){
-        if($_student['roll'] == 'roll'){
+        if($_student['roll'] == $roll){
             $found =true;
             break;
         }
@@ -85,6 +88,40 @@ function addStudent($fname,$lname,$roll){
             'roll'=>$roll
         );
         array_push($students,$student);
+        $serializeData = serialize($students);
+        file_put_contents(DB_NAME,$serializeData);
+        return true;
+    }
+    return false;
+}
+
+function getStudent($id){
+    $serializeData = file_get_contents(DB_NAME);
+    $students=  unserialize($serializeData);
+    foreach($students as $student){
+        if($student['id']==$id){
+            return $student;
+        }
+    }
+    return false;
+}
+
+function updateStudent($id,$fname,$lname,$roll){
+    $found = false;
+    $serializeData = file_get_contents(DB_NAME);
+    $students=  unserialize($serializeData);
+    foreach($students as $_student){
+        if($_student['roll'] == $roll && $_student['id'] !=$id){
+            $found =true;
+            break;
+        }
+    }
+    if(!$found){
+
+        $students[$id-1]['fname'] = $fname;
+        $students[$id-1]['lname'] = $lname;
+        $students[$id-1]['roll'] = $roll;
+    
         $serializeData = serialize($students);
         file_put_contents(DB_NAME,$serializeData);
         return true;
