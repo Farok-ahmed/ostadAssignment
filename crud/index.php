@@ -7,7 +7,7 @@
  $lname = '';
  $roll = '';
  if('delete'==$task){
-    $id = filter_input(INPUT_GET,'id',FILTER_SANITIZE_STRING);
+    $id = filter_input(INPUT_GET,'id',FILTER_SANITIZE_NUMBER_INT);
     if($id>0){
         deleteStudent($id);
     }
@@ -22,7 +22,7 @@
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
     $roll = $_POST['roll'];
-    $id = filter_input(INPUT_POST,'id',FILTER_SANITIZE_STRING);
+    $id = filter_input(INPUT_POST,'id',FILTER_SANITIZE_NUMBER_INT);
     if($id){
         if($fname !='' && $lname !='' && $roll !=''){
             updateStudent($id,$fname,$lname,$roll);
@@ -99,7 +99,7 @@
         </div>
         <?php endif; ?> 
         <?php if('edit' ==$task):
-          $id = $_GET['id'];
+          $id = filter_input(INPUT_GET,'id',FILTER_SANITIZE_NUMBER_INT);
           $student = getStudent($id);
           if($student):    
         ?>

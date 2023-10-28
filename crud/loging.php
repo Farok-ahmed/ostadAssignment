@@ -19,6 +19,8 @@
                     <input type="text" name="fname" id="fname">
                     <label for="lname">Last Name</label>
                     <input type="text" name="lname" id="lname" >
+                    <label for="email">Enter Your E-mail</label>
+                    <input type="email" name="email" id="email">
                     <label for="password">Password </label>
                     <input type="password" name="password" id="password" >
                     <button type="submit" name="submit">Loging</button>
