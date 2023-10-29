@@ -1,0 +1,3 @@
+admin,pass123,admin
+farok,pass123,user
+hanif,pass123,editor

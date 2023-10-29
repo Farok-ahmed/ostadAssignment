@@ -135,3 +135,7 @@ function deleteStudent($id){
     $serializeData = serialize($students);
     file_put_contents(DB_NAME,$serializeData);
 }
+
+function isAdmin(){
+    return ('admin'==$_SESSION['role']);
+}
