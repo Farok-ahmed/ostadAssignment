@@ -1,40 +1,12 @@
 <?php
 session_start();
 
-$error = false;
-$username = $_POST['username'];
-$password = $_POST['password'];
-$fileName = "/home/farok/Desktop/ostadAssignment/crud/data/users.txt";
-$fp = fopen($fileName,'r');
-if($username && $password){
-    $_SESSION['loggedin']=false;
-    $_SESSION['user']=false;
-    $_SESSION['role']=false;
-
-while($data = fgetcsv($fp)){
-   
-        if($data[0]== $username && $data[1]==$password){
-            $_SESSION['loggedin']=true;
-            $_SESSION['user']=$username;
-            $_SESSION['role']=$data[2];
-            header("Location: index.php");
-        }
-    }
-    if(!$_SESSION['loggedin']){
-        $error = true;
-    }
-}
-
-if(isset($_POST['logout'])){
-    $_SESSION['loggedin']=false;
-    $_SESSION['user']=false;
-    $_SESSION['role']=false;
-    session_destroy();
-    header("Location: index.php");
-
+if(!$_SESSION[$email] && !$_SESSION[$password]){
+    header("location: loging.php");
+}else{
+    header("location: index.php");
 }
 ?>
-
 
 
 <!DOCTYPE html>
@@ -53,50 +25,26 @@ if(isset($_POST['logout'])){
     </style>
 </head>
 <body>
-
     <div class="container">
         <div class="row">
             <div class="column column-60">
-            <h1>Welcome Loging Form</h1>
+                <h3>Welcome Loging Form</h3>
+
             </div>
         </div>
-        <div class="row">
+        <row>
             <div class="column column-60">
-                <?php
-                if($error){
-                    echo '<blockquote>User name & password wrong</blockquote>';
-                }
-                  if($_SESSION['loggedin']){
-                    echo "Hello Admin, Weclome";
-                  }else{
-
-                      echo "<h3>Hello Stranger, Login Below</h3>";
-                  }
-                ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="column column-60">
-                <?php if(!$_SESSION['loggedin']): ?>
-                <form action="" method="POST">
-                    <label for="username">User Name</label>
-                    <input type="text" name="username" id="username">
-                    <label for="password">Password </label>
-                    <input type="password" name="password" id="password" >
-                    <button type="submit" name="submit">Loging</button>
+                <form action="index.php" method="POST">
+                    <label for="username">Your User Name</label>
+                    <input type="text" name="username" id="username" >
+                    <label for="password">Password</label>
+                    <input type="password" name="password">
+                    <button type="submit">Loging</button>
+                    <p>Don’t have an account yet?  <a href="register.php">Sign up</a></p>
+                    
                 </form>
-                <?php else: 
-                ?>
-                 <form action="loging.php" method="POST">
-                    <input type="hidden" name="logout" value="1">
-                    <button type="submit" name="submit">logout</button>
-                </form>
-                 <?php
-                 endif; ?>
             </div>
-        </div>
-    </div>    
-
-
+        </row>
+    </div>
 </body>
 </html>
