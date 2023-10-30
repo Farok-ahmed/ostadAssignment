@@ -1,3 +1,5 @@
+
+
 <div>
     <div class="float-left">
         <p>
@@ -8,9 +10,16 @@
         </p>
     </div>
     <div class="float-right">
-        
-        <a href="loging.php">Login </a> |
-        <a href="logout.php">Logout </a>
-       
+        <?php
+        if(!isset($_SESSION['loggedin'])) {
+            ?>
+            <a href="loging.php">Login</a> 
+            
+            
+        <?php } else {
+            ?>
+            <a href="loging.php?logout=true">Log Out</a>
+            <?php
+        } ?>
     </div>
 </div>

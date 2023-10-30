@@ -1,0 +1,2 @@
+admin@gmail.com,pass123,admin
+farok@gmail.com,123,user

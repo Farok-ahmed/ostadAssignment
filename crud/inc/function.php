@@ -1,8 +1,8 @@
 <?php
 // windows file system
-//define("DB_NAME","e:\\New folder (2)\\ostadAssignment\\crud\\data\\db.txt");
+define("DB_NAME","e:\\New folder (2)\\ostadAssignment\\crud\\data\\db.txt");
 // linux file system
-define("DB_NAME","/home/farok/Desktop/ostadAssignment/crud/data/db.txt");
+//define("DB_NAME","/home/farok/Desktop/ostadAssignment/crud/data/db.txt");
 
 
 function seed(){
